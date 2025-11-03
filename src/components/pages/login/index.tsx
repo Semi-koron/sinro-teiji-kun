@@ -4,11 +4,12 @@ import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import { useState } from "react";
 import { login } from "../../../util/supabase/auth";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const router = useNavigate();
 
   const handleLogin = () => {
     login(username, password).then(({ data, error }) => {
@@ -16,6 +17,7 @@ const LoginPage = () => {
         console.error("Login error:", error.message);
       } else {
         console.log("Login successful:", data);
+        router("/");
       }
     });
   };

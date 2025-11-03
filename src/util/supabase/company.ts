@@ -13,4 +13,13 @@ const addCompany = async (name: string) => {
   return { data, error };
 };
 
-export { addCompany, type Company };
+const fetchCompanyById = async (companyId: string) => {
+  const { data, error } = await supabase
+    .from("company")
+    .select("*")
+    .eq("id", companyId)
+    .single();
+  return { data, error };
+};
+
+export { addCompany, fetchCompanyById, type Company };
