@@ -30,7 +30,7 @@ const SignupPage = () => {
 
   return (
     <>
-      <h1>〇〇〇のアカウントを作成する</h1>
+      <h1>アカウントを作成する</h1>
       <Link to="/login">
         <p>アカウントをお持ちの場合はログイン</p>
       </Link>
@@ -47,9 +47,7 @@ const SignupPage = () => {
 
       {errorMessage && (
         <Box sx={{ maxWidth: "50ch", margin: "0 auto", mb: 2 }}>
-          <Alert severity="error">
-            エラーが発生しました: {errorMessage}
-          </Alert>
+          <Alert severity="error">エラーが発生しました: {errorMessage}</Alert>
         </Box>
       )}
 

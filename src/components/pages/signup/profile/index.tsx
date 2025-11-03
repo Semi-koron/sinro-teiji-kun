@@ -52,7 +52,7 @@ const ProfilePage = () => {
 
   return (
     <>
-      <h1>〇〇〇のアカウントを作成する</h1>
+      <h1>アカウントを作成する</h1>
       <Box
         component="form"
         sx={{
