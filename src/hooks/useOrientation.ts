@@ -6,6 +6,10 @@ const useOrientation = () => {
     beta: number;
     gamma: number;
   } | null>(null);
+  const [permission, setPermission] = useState<"granted" | "denied" | "prompt">(
+    "prompt"
+  );
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const handleOrientation = (event: DeviceOrientationEvent) => {
@@ -16,14 +20,44 @@ const useOrientation = () => {
       });
     };
 
-    window.addEventListener("deviceorientation", handleOrientation);
+    if (permission === "granted") {
+      window.addEventListener("deviceorientation", handleOrientation);
 
-    return () => {
-      window.removeEventListener("deviceorientation", handleOrientation);
-    };
-  }, []);
+      return () => {
+        window.removeEventListener("deviceorientation", handleOrientation);
+      };
+    }
+  }, [permission]);
 
-  return orientation;
+  const requestPermission = async () => {
+    try {
+      type DeviceOrientationEventiOS = typeof DeviceOrientationEvent & {
+        requestPermission?: () => Promise<PermissionState>;
+      };
+
+      if (
+        typeof DeviceOrientationEvent !== "undefined" &&
+        typeof (DeviceOrientationEvent as DeviceOrientationEventiOS)
+          .requestPermission === "function"
+      ) {
+        const response = await (
+          DeviceOrientationEvent as DeviceOrientationEventiOS
+        ).requestPermission!();
+        setPermission(response);
+        if (response !== "granted") {
+          setError("センサーへのアクセスが拒否されました");
+        }
+      } else {
+        // Android や古いブラウザは許可不要
+        setPermission("granted");
+      }
+    } catch (err) {
+      setError(`エラー: ${err}`);
+      setPermission("denied");
+    }
+  };
+
+  return { orientation, permission, error, requestPermission };
 };
 
 export default useOrientation;

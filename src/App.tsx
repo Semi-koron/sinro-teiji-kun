@@ -2,23 +2,36 @@ import "./App.css";
 import useOrientation from "./hooks/useOrientation";
 
 function App() {
-  const data = useOrientation();
+  const { orientation, permission, error, requestPermission } = useOrientation();
+
   return (
-    <>
-      {data ? (
-        <div className="App">
-          <h1>Device Orientation</h1>
-          <p>Alpha (Yaw): {data.alpha.toFixed(2)}</p>
-          <p>Beta (Pitch): {data.beta.toFixed(2)}</p>
-          <p>Gamma (Roll): {data.gamma.toFixed(2)}</p>
-        </div>
-      ) : (
-        <div className="App">
-          <h1>Device Orientation</h1>
-          <p>Loading orientation data...</p>
+    <div className="App">
+      <h1>Device Orientation</h1>
+
+      {permission === "prompt" && (
+        <div>
+          <p>センサーへのアクセス許可が必要です</p>
+          <button onClick={requestPermission}>センサーを有効にする</button>
         </div>
       )}
-    </>
+
+      {permission === "denied" && (
+        <div>
+          <p>センサーへのアクセスが拒否されました</p>
+          {error && <p style={{ color: "red" }}>{error}</p>}
+        </div>
+      )}
+
+      {permission === "granted" && orientation ? (
+        <div>
+          <p>Alpha (Yaw): {orientation.alpha.toFixed(2)}</p>
+          <p>Beta (Pitch): {orientation.beta.toFixed(2)}</p>
+          <p>Gamma (Roll): {orientation.gamma.toFixed(2)}</p>
+        </div>
+      ) : permission === "granted" ? (
+        <p>Loading orientation data...</p>
+      ) : null}
+    </div>
   );
 }
 
