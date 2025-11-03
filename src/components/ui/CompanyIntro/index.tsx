@@ -1,6 +1,6 @@
 // src/pages/CompanyIntro.tsx
 import styles from "./index.module.css";
-import { Event } from "./eventdate.ts";
+import { type Event } from "./eventdate.ts";
 
 // 企業情報のダミーデータ
 const companyData = {
