@@ -189,7 +189,14 @@ const EventCreatePage = () => {
         </div>
         <div>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DemoContainer components={["DatePicker"]}>
+            <DemoContainer
+              components={["DatePicker"]}
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
               <DatePicker
                 value={eventDate}
                 onChange={(newValue) => setEventDate(newValue)}
