@@ -1,6 +1,6 @@
 // src/pages/CompanyIntro.tsx
 import styles from "./index.module.css";
-import { type Event } from "./eventdate.ts";
+import { type Event } from "./eventdata.ts";
 
 // 企業情報のダミーデータ
 const companyData = {
@@ -22,9 +22,8 @@ const companyData = {
 
 export default function CompanyIntro() {
 
-  
-
   return (
-    <p>{Event[0].id}</p>
+    <h1>hello world!</h1>
+    //<p>{Event[0].id}</p>
   );
 }
