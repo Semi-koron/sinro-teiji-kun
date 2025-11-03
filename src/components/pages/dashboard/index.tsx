@@ -1,4 +1,5 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
+import { prefOptions, sbjOptions } from "./optionList";
 import MenuBar from "../dashboard/menuBar";
 import {TextField, Autocomplete, Card, CardContent, Box, CardActionArea, Button} from "@mui/material";
 
@@ -6,10 +7,12 @@ const DashboardPage = () => {
     return (
         <div>
             <MenuBar />
-            <Box sx={{display: "flex", flexDirection: "row", justifyContent: "space-between", gap: 2, marginTop: 2, border: "1px solid lightgray", padding: 0.5, borderRadius: 1}}>
+            <Box sx={{display: "flex", flexDirection: "row", justifyContent: "space-between", gap: 2, marginTop: 2, border: "1px solid lightgray", padding: 1, borderRadius: 1}}>
                 <Autocomplete
                     sx={{minWidth: 200}}
-                    options={[]}
+                    options={prefOptions}
+                    getOptionLabel={(option) => option.pref}
+                    groupBy={(option) => option.region}
                     renderInput={(params) => (
                         <TextField
                             {...params}
@@ -20,7 +23,7 @@ const DashboardPage = () => {
                 />
                 <Autocomplete
                     sx={{minWidth: 200}}
-                    options={[]}
+                    options={sbjOptions}
                     renderInput={(params) => (
                         <TextField
                             {...params}
