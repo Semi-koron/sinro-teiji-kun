@@ -1,5 +1,7 @@
+import CompanyIntro from "../../ui/CompanyIntro";
+
 const CompanyPage = () => {
-  return <div>Company Page</div>;
+  return <CompanyIntro />;
 };
 
 export default CompanyPage;

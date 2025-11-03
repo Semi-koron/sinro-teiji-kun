@@ -1,0 +1,92 @@
+/* src/styles/CompanyIntro.module.css */
+
+.container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+}
+
+.header {
+    background-color: #0088cc; /* マイナビのイメージカラー */
+    color: white;
+    padding: 30px 20px;
+    text-align: center;
+    border-radius: 6px 6px 0 0;
+}
+
+.companyName {
+    font-size: 2.5em;
+    margin-bottom: 5px;
+}
+
+.slogan {
+    font-size: 1.2em;
+    font-weight: 300;
+}
+
+.section {
+    padding: 30px 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.section h2 {
+    color: #0088cc;
+    font-size: 1.8em;
+    border-left: 5px solid #ffaa00; /* アクセントカラー */
+    padding-left: 10px;
+    margin-bottom: 15px;
+}
+
+.leadText {
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.businessList {
+    list-style: none;
+    padding-left: 0;
+}
+
+.businessList li {
+    background-color: #f7f7f7;
+    padding: 10px 15px;
+    margin-bottom: 8px;
+    border-radius: 4px;
+}
+
+.detailGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 15px;
+}
+
+.detailLabel {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+    border-bottom: 2px solid #ffaa00;
+    display: inline-block;
+}
+
+.detailValue {
+    font-size: 1.1em;
+    color: #555;
+}
+
+.footer {
+    text-align: center;
+    padding: 20px;
+    border-top: 1px solid #eee;
+}
+
+.footer a {
+    color: #0088cc;
+    text-decoration: none;
+    font-weight: bold;
+}
