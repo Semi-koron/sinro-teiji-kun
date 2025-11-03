@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { type User } from "@supabase/supabase-js";
 import { supabase } from "../../../../util/supabase/supabase";
 import { addUser } from "../../../../util/supabase/user";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import type { Company } from "../../../../util/supabase/company";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 
@@ -105,23 +105,28 @@ const ProfilePage = () => {
           </FormControl>
         </div>
         {role === "employee" && (
-          <div>
-            <FormControl>
-              <InputLabel id="company-select">所属会社</InputLabel>
-              <Select
-                label="会社名"
-                id="company-select"
-                value={company}
-                onChange={(e) => setCompany(e.target.value)}
-              >
-                {companyList.map((company) => (
-                  <MenuItem key={company.id} value={company.id}>
-                    {company.company_name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </div>
+          <>
+            <div>
+              <FormControl>
+                <InputLabel id="company-select">所属会社</InputLabel>
+                <Select
+                  label="会社名"
+                  id="company-select"
+                  value={company}
+                  onChange={(e) => setCompany(e.target.value)}
+                >
+                  {companyList.map((company) => (
+                    <MenuItem key={company.id} value={company.id}>
+                      {company.company_name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </div>
+            <Link to="/company/create">
+              会社が見つからない場合はこちらから新規登録
+            </Link>
+          </>
         )}
       </Box>
       <Stack spacing={2} direction="row" justifyContent="center">

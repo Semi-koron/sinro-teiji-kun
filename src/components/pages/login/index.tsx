@@ -4,6 +4,7 @@ import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import { useState } from "react";
 import { login } from "../../../util/supabase/auth";
+import { Link } from "react-router-dom";
 
 const LoginPage = () => {
   const [username, setUsername] = useState("");
@@ -21,6 +22,9 @@ const LoginPage = () => {
   return (
     <>
       <h1>〇〇〇にログインする</h1>
+      <Link to="/signup">
+        <p>アカウントをお持ちになってない場合はサインアップ</p>
+      </Link>
       <Box
         component="form"
         sx={{ "& .MuiTextField-root": { m: 1, width: "50ch" } }}
