@@ -1,38 +1,70 @@
-import { Card, CardActionArea, CardContent, CardMedia } from "@mui/material";
+import { Card, CardActionArea, CardContent, Link } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 type contentCardProps = {
-    title: string;
-    description: string;
-    subject: string;
-    region: string;
-    prefecture: string;
-    imgUrl: string;
+  id: string | number;
+  title: string;
+  description: string;
+  subject: string;
+  prefecture: string;
+  companyName?: string;
+  companyId?: string;
 };
 
-export default function ContentCard({ title, description, subject, region, prefecture, imgUrl }: contentCardProps) {
-    return (
-        <Card sx={{minWidth: 500, marginRight: 2, marginBottom: 2}}>
-            <CardActionArea
-                sx={{
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: "flex-start",
-                }}
-            >
-                <CardMedia
-                    component="img"
-                    sx={{width: 150, height: 150}}
-                    image={imgUrl}
-                    alt={title}
-                />
-                <CardContent>
-                    <h2>{title}</h2>
-                    <p>{description}</p>
-                    <p>
-                        教科: {subject}　　都道府県: {prefecture}
-                    </p>
-                </CardContent>
-            </CardActionArea>
-        </Card>
-    );
+export default function ContentCard({
+  id,
+  title,
+  description,
+  subject,
+  prefecture,
+  companyName,
+  companyId,
+}: contentCardProps) {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/event/${id}`);
+  };
+
+  const handleCompanyClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (companyId) {
+      navigate(`/company/${companyId}`);
+    }
+  };
+
+  return (
+    <Card
+      sx={{ minWidth: 500, marginRight: 2, marginBottom: 2, textAlign: "left" }}
+    >
+      <CardActionArea
+        onClick={handleClick}
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "flex-start",
+        }}
+      >
+        <CardContent>
+          <h2>{title}</h2>
+          <p>{description}</p>
+          <p>教科: {subject}</p>
+          <p>都道府県: {prefecture}</p>
+          {companyName && (
+            <p>
+              企業:{" "}
+              <Link
+                component="button"
+                variant="body1"
+                onClick={handleCompanyClick}
+                sx={{ cursor: "pointer", textDecoration: "underline" }}
+              >
+                {companyName}
+              </Link>
+            </p>
+          )}
+        </CardContent>
+      </CardActionArea>
+    </Card>
+  );
 }

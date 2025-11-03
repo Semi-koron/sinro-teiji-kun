@@ -1,9 +1,11 @@
 import { Box, Button, Stack, TextField } from "@mui/material";
 import { useState } from "react";
 import { addCompany } from "../../../../util/supabase/company";
+import { useNavigate } from "react-router-dom";
 
 const CompanyCreatePage = () => {
   const [companyName, setCompanyName] = useState("");
+  const router = useNavigate();
 
   const postCompanyData = () => {
     addCompany(companyName).then(({ data, error }) => {
@@ -11,6 +13,7 @@ const CompanyCreatePage = () => {
         console.error("Company creation error:", error.message);
       } else {
         console.log("Company created successfully:", data);
+        router("/");
       }
     });
   };

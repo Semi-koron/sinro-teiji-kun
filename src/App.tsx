@@ -7,6 +7,7 @@ import EventPage from "./components/pages/event";
 import CompanyPage from "./components/pages/company";
 import CompanyCreatePage from "./components/pages/company/create";
 import ProfilePage from "./components/pages/signup/profile";
+import ProfileSettingsPage from "./components/pages/profile";
 import EventCreatePage from "./components/pages/event/create";
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Route path="signup" element={<SignupPage />} />
         <Route path="signup/profile" element={<ProfilePage />} />
         <Route path="login" element={<LoginPage />} />
+        <Route path="profile" element={<ProfileSettingsPage />} />
         <Route path="event/create" element={<EventCreatePage />} />
         <Route path="event/:eventId" element={<EventPage />} />
         <Route path="company/create" element={<CompanyCreatePage />} />
