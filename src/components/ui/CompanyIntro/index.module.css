@@ -90,3 +90,20 @@
     text-decoration: none;
     font-weight: bold;
 }
+
+.applicationButton {
+    display: inline-block;
+    padding: 12px 30px;
+    background-color: #ffaa00; /* アクセントカラー */
+    color: white !important; /* !important を付けて、フッターの a タグのスタイルを上書き */
+    text-decoration: none;
+    font-size: 1.2em;
+    font-weight: bold;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.applicationButton:hover {
+    background-color: #ff8800; /* ホバー時の色 */
+}
