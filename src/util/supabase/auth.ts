@@ -4,6 +4,9 @@ async function signUpNewUser(mail: string, password: string) {
   const { data, error } = await supabase.auth.signUp({
     email: mail,
     password: password,
+    options: {
+      emailRedirectTo: `${import.meta.env.VITE_BASE_URL}/signup/profile`,
+    },
   });
   return { data, error };
 }
