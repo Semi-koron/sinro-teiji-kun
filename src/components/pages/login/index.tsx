@@ -23,7 +23,7 @@ const LoginPage = () => {
   };
   return (
     <>
-      <h1>〇〇〇にログインする</h1>
+      <h1>ログイン</h1>
       <Link to="/signup">
         <p>アカウントをお持ちになってない場合はサインアップ</p>
       </Link>
