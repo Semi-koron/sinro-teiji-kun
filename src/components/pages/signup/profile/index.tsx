@@ -27,7 +27,7 @@ const ProfilePage = () => {
           console.error("Error adding user data:", error.message);
         }
         console.log("User data added successfully:", data);
-        router("/signup/complete");
+        router("/");
       }
     );
   };

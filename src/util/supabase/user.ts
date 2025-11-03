@@ -1,5 +1,13 @@
 import { supabase } from "./supabase";
 
+type UserData = {
+  id: string;
+  name: string;
+  age: number;
+  role: string;
+  belong: string | null;
+};
+
 const addUser = async (
   id: string,
   username: string,
@@ -19,4 +27,4 @@ const addUser = async (
   return { data, error };
 };
 
-export { addUser };
+export { addUser, type UserData };
