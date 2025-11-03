@@ -2,22 +2,6 @@
 import styles from "./index.module.css";
 import { eventdate } from "./eventdata.ts";
 
-// 企業情報のダミーデータ
-const companyData = {
-  name: "企業名",
-  business: [
-    "人材情報サービス（求人、転職、新卒、アルバイトなど）",
-    "進学情報サービス（マイナビ進学）",
-    "住宅・ウェディング・農業など多岐にわたる生活情報サービス",
-  ],
-  recruit: {
-    jobTitle: "総合職（企画・営業）",
-    target: "2026年3月卒業見込みの方",
-    location: "東京、大阪、名古屋、福岡 ほか全国主要都市",
-  },
-};
-
-
 
 export default function Home() {
 
@@ -25,7 +9,7 @@ export default function Home() {
 <div className={styles.container}>
       {/* 1. ヘッダーセクション */}
       <header className={styles.header}>
-        <h1 className={styles.companyName}>{companyData.name}</h1>
+        <h1 className={styles.companyName}>企業名</h1>
       </header>
 
       {/* 2. 事業内容セクション */}
@@ -65,6 +49,5 @@ export default function Home() {
           ✅ イベントに申し込む
           </a>
           </footer>
-          </div>
-          );
+          </div>);
 }
