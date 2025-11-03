@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import {useState} from "react";
 import {Drawer} from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
 import MuiAppBar from "@mui/material/AppBar";
@@ -51,6 +51,11 @@ const DrawerHeader = styled("div")(({theme}) => ({
     ...theme.mixins.toolbar,
     justifyContent: "flex-end",
 }));
+
+const handleLogout = () => {
+    // ログアウト処理をここに実装
+    console.log("ログアウトしました");
+}
 
 export default function MenuBar() {
     const theme = useTheme();
@@ -135,7 +140,10 @@ export default function MenuBar() {
                         key={"ログアウト"}
                         disablePadding
                     >
-                        <ListItemButton sx={{ backgroundColor: "error.light" }}>
+                        <ListItemButton
+                            sx={{ backgroundColor: "error.light" }}
+                            onClick={handleLogout}
+                        >
                             <ListItemText sx={{ color: "white" }} primary={"ログアウト"} />
                         </ListItemButton>
                     </ListItem>
