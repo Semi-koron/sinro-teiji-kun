@@ -4,6 +4,7 @@ import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import { useState } from "react";
 import { login } from "../../../util/supabase/auth";
+import { fetchUser } from "../../../util/supabase/user";
 import { Link, useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
@@ -11,15 +12,30 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const router = useNavigate();
 
-  const handleLogin = () => {
-    login(username, password).then(({ data, error }) => {
-      if (error) {
-        console.error("Login error:", error.message);
+  const handleLogin = async () => {
+    const { data, error } = await login(username, password);
+
+    if (error) {
+      console.error("Login error:", error.message);
+      return;
+    }
+
+    console.log("Login successful:", data);
+
+    // ログイン成功後、ユーザーデータが存在するかチェック
+    if (data.user) {
+      const { data: userData, error: userError } = await fetchUser(data.user.id);
+
+      if (userError || !userData) {
+        // ユーザーデータが見つからない場合、プロフィール登録ページに遷移
+        console.log("User data not found, redirecting to profile registration");
+        router("/signup/profile");
       } else {
-        console.log("Login successful:", data);
+        // ユーザーデータが存在する場合、ダッシュボードに遷移
+        console.log("User data found:", userData);
         router("/");
       }
-    });
+    }
   };
   return (
     <>
