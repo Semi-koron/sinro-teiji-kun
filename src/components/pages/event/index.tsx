@@ -20,6 +20,7 @@ import {
   checkUserApplication,
   fetchEventParticipants,
 } from "../../../util/supabase/event";
+import Header from "../../common/Header";
 import type { Subject } from "../../../util/supabase/subject";
 import { supabase } from "../../../util/supabase/supabase";
 
@@ -145,118 +146,178 @@ const EventPage = () => {
   const eventDate = event.date ? new Date(event.date).toLocaleDateString("ja-JP") : "未定";
 
   return (
-    <Box sx={{ p: 4, maxWidth: 1200, margin: "0 auto" }}>
-      <Card>
-        <CardContent>
-          <Typography variant="h4" component="h1" gutterBottom>
-            {event.event_name}
-          </Typography>
+      <>
+          <Header title="イベント詳細" />
+          <Box sx={{p: 4, maxWidth: 1200, margin: "0 auto"}}>
+              <Card>
+                  <CardContent>
+                      <Typography
+                          variant="h4"
+                          component="h1"
+                          gutterBottom
+                      >
+                          {event.event_name}
+                      </Typography>
 
-          <Stack direction="row" spacing={1} sx={{ mb: 2 }}>
-            <Chip label={event.place} color="primary" variant="outlined" />
-            <Chip label={eventDate} color="secondary" variant="outlined" />
-          </Stack>
+                      <Stack
+                          direction="row"
+                          spacing={1}
+                          sx={{mb: 2}}
+                      >
+                          <Chip
+                              label={event.place}
+                              color="primary"
+                              variant="outlined"
+                          />
+                          <Chip
+                              label={eventDate}
+                              color="secondary"
+                              variant="outlined"
+                          />
+                      </Stack>
 
-          <Box sx={{ mb: 3 }}>
-            <Typography variant="h6" gutterBottom>
-              概要
-            </Typography>
-            <Typography variant="body1" paragraph>
-              {event.description}
-            </Typography>
-          </Box>
+                      <Box sx={{mb: 3}}>
+                          <Typography
+                              variant="h6"
+                              gutterBottom
+                          >
+                              概要
+                          </Typography>
+                          <Typography
+                              variant="body1"
+                              paragraph
+                          >
+                              {event.description}
+                          </Typography>
+                      </Box>
 
-          <Box sx={{ mb: 3 }}>
-            <Typography variant="h6" gutterBottom>
-              関連する教科
-            </Typography>
-            <Stack direction="row" spacing={1}>
-              {subjects && subjects.length > 0 ? (
-                subjects.map((subject, index) => (
-                  <Chip key={index} label={subject} />
-                ))
-              ) : (
-                <Typography variant="body2" color="text.secondary">
-                  未設定
-                </Typography>
-              )}
-            </Stack>
-          </Box>
+                      <Box sx={{mb: 3}}>
+                          <Typography
+                              variant="h6"
+                              gutterBottom
+                          >
+                              関連する教科
+                          </Typography>
+                          <Stack
+                              direction="row"
+                              spacing={1}
+                          >
+                              {subjects && subjects.length > 0 ? (
+                                  subjects.map((subject, index) => (
+                                      <Chip
+                                          key={index}
+                                          label={subject}
+                                      />
+                                  ))
+                              ) : (
+                                  <Typography
+                                      variant="body2"
+                                      color="text.secondary"
+                                  >
+                                      未設定
+                                  </Typography>
+                              )}
+                          </Stack>
+                      </Box>
 
-          <Box sx={{ mb: 3 }}>
-            <Typography variant="h6" gutterBottom>
-              企業情報
-            </Typography>
-            <Card variant="outlined">
-              <CardActionArea
-                onClick={() => {
-                  if (event.company?.id) {
-                    navigate(`/company/${event.company.id}`);
-                  }
-                }}
-              >
-                <CardContent>
-                  <Typography variant="h6">
-                    {event.company?.company_name || "未設定"}
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-            </Card>
-          </Box>
+                      <Box sx={{mb: 3}}>
+                          <Typography
+                              variant="h6"
+                              gutterBottom
+                          >
+                              企業情報
+                          </Typography>
+                          <Card variant="outlined">
+                              <CardActionArea
+                                  onClick={() => {
+                                      if (event.company?.id) {
+                                          navigate(
+                                              `/company/${event.company.id}`,
+                                          );
+                                      }
+                                  }}
+                              >
+                                  <CardContent>
+                                      <Typography variant="h6">
+                                          {event.company?.company_name ||
+                                              "未設定"}
+                                      </Typography>
+                                  </CardContent>
+                              </CardActionArea>
+                          </Card>
+                      </Box>
 
-          {/* 申し込みボタン */}
-          <Box sx={{ mb: 3 }}>
-            {currentUserId ? (
-              hasApplied ? (
-                <Alert severity="info">このイベントに申し込み済みです</Alert>
-              ) : (
-                <Button
-                  variant="contained"
-                  color="primary"
-                  size="large"
-                  onClick={handleApply}
-                  disabled={applying}
-                  fullWidth
-                >
-                  {applying ? "申し込み中..." : "このイベントに申し込む"}
-                </Button>
-              )
-            ) : (
-              <Alert severity="warning">
-                イベントに申し込むにはログインが必要です
-              </Alert>
-            )}
-          </Box>
+                      {/* 申し込みボタン */}
+                      <Box sx={{mb: 3}}>
+                          {currentUserId ? (
+                              hasApplied ? (
+                                  <Alert severity="info">
+                                      このイベントに申し込み済みです
+                                  </Alert>
+                              ) : (
+                                  <Button
+                                      variant="contained"
+                                      color="primary"
+                                      size="large"
+                                      onClick={handleApply}
+                                      disabled={applying}
+                                      fullWidth
+                                  >
+                                      {applying
+                                          ? "申し込み中..."
+                                          : "このイベントに申し込む"}
+                                  </Button>
+                              )
+                          ) : (
+                              <Alert severity="warning">
+                                  イベントに申し込むにはログインが必要です
+                              </Alert>
+                          )}
+                      </Box>
 
-          {/* 参加者一覧 */}
-          <Box sx={{ mb: 3 }}>
-            <Typography variant="h6" gutterBottom>
-              参加者一覧 ({participants.length}名)
-            </Typography>
-            {participants.length > 0 ? (
-              <Card variant="outlined">
-                <CardContent>
-                  <List>
-                    {participants.map((participant) => (
-                      <ListItem key={participant.id} divider>
-                        <ListItemText
-                          primary={participant.user?.name || "名前非表示"}
-                          secondary={`年齢: ${participant.user?.age}歳 | 役割: ${participant.user?.role}`}
-                        />
-                      </ListItem>
-                    ))}
-                  </List>
-                </CardContent>
+                      {/* 参加者一覧 */}
+                      <Box sx={{mb: 3}}>
+                          <Typography
+                              variant="h6"
+                              gutterBottom
+                          >
+                              参加者一覧 ({participants.length}名)
+                          </Typography>
+                          {participants.length > 0 ? (
+                              <Card variant="outlined">
+                                  <CardContent>
+                                      <List>
+                                          {participants.map((participant) => (
+                                              <ListItem
+                                                  key={participant.id}
+                                                  divider
+                                              >
+                                                  <ListItemText
+                                                      primary={
+                                                          participant.user
+                                                              ?.name ||
+                                                          "名前非表示"
+                                                      }
+                                                      secondary={`年齢: ${participant.user?.age}歳 | 役割: ${participant.user?.role}`}
+                                                  />
+                                              </ListItem>
+                                          ))}
+                                      </List>
+                                  </CardContent>
+                              </Card>
+                          ) : (
+                              <Typography
+                                  variant="body2"
+                                  color="text.secondary"
+                              >
+                                  まだ参加者がいません
+                              </Typography>
+                          )}
+                      </Box>
+                  </CardContent>
               </Card>
-            ) : (
-              <Typography variant="body2" color="text.secondary">
-                まだ参加者がいません
-              </Typography>
-            )}
           </Box>
-        </CardContent>
-      </Card>
-    </Box>
+      </>
   );
 };
 
