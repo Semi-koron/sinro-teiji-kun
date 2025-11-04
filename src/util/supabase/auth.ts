@@ -5,7 +5,7 @@ async function signUpNewUser(mail: string, password: string) {
     email: mail,
     password: password,
     options: {
-      emailRedirectTo: `${import.meta.env.VITE_BASE_URL}/signup/profile`,
+      emailRedirectTo: `${import.meta.env.VITE_BASE_URL}/`,
     },
   });
   return { data, error };

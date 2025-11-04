@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Drawer } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
 import MuiAppBar from "@mui/material/AppBar";
@@ -60,7 +60,31 @@ type HeaderProps = {
 export default function Header({ title }: HeaderProps) {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // 初回ロード時にログイン状態をチェック
+    const checkLoginStatus = async () => {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+      setIsLoggedIn(!!session);
+    };
+
+    checkLoginStatus();
+
+    // 認証状態の変更を監視
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setIsLoggedIn(!!session);
+    });
+
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, []);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -78,6 +102,11 @@ export default function Header({ title }: HeaderProps) {
       console.log("ログアウトしました");
       navigate("/login");
     }
+  };
+
+  const handleLogin = () => {
+    navigate("/login");
+    setOpen(false);
   };
 
   const handleNavigation = (path: string) => {
@@ -156,14 +185,25 @@ export default function Header({ title }: HeaderProps) {
         </List>
         <Divider />
         <List>
-          <ListItem key={"ログアウト"} disablePadding>
-            <ListItemButton
-              sx={{ backgroundColor: "error.light" }}
-              onClick={handleLogout}
-            >
-              <ListItemText sx={{ color: "white" }} primary={"ログアウト"} />
-            </ListItemButton>
-          </ListItem>
+          {isLoggedIn ? (
+            <ListItem key={"ログアウト"} disablePadding>
+              <ListItemButton
+                sx={{ backgroundColor: "error.light" }}
+                onClick={handleLogout}
+              >
+                <ListItemText sx={{ color: "white" }} primary={"ログアウト"} />
+              </ListItemButton>
+            </ListItem>
+          ) : (
+            <ListItem key={"ログイン"} disablePadding>
+              <ListItemButton
+                sx={{ backgroundColor: "primary.main" }}
+                onClick={handleLogin}
+              >
+                <ListItemText sx={{ color: "white" }} primary={"ログイン"} />
+              </ListItemButton>
+            </ListItem>
+          )}
         </List>
       </Drawer>
     </div>
