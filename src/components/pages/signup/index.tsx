@@ -82,6 +82,11 @@ const SignupPage = () => {
         </div>
       </Box>
       <Stack spacing={2} direction="row" justifyContent="center">
+        <Link to="/signup/profile">
+          <p>プロフィール情報を入力する</p>
+        </Link>
+      </Stack>
+      <Stack spacing={2} direction="row" justifyContent="center">
         <Button variant="contained" onClick={handleSignup}>
           新規登録
         </Button>
